@@ -230,14 +230,20 @@
 
 <!-- ⏱️ Pop-up Timers -->
 <script>
+  // Show center popup once after 7 seconds
+  setTimeout(() => {
+    document.getElementById('center-popup').style.display = 'block';
+  }, 7000);
+
+  // Show bottom popup after 5 seconds (first time)
   setTimeout(() => {
     document.getElementById('telegram-popup').style.display = 'block';
   }, 5000);
 
-  setTimeout(() => {
-    document.getElementById('center-popup').style.display = 'block';
-  }, 7000);
+  // Repeat bottom popup every 5 minutes
+  setInterval(() => {
+    document.getElementById('telegram-popup').style.display = 'block';
+  }, 300000); // 5 * 60 * 1000 = 300,000 ms
 </script>
-
 </body>
 </html>
