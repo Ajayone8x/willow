@@ -141,6 +141,61 @@
       closePopup();
     }
   </script>
+  <script>
+  // Disable Right Click and Long Press
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('selectstart', e => e.preventDefault());
+  document.addEventListener('dragstart', e => e.preventDefault());
+  document.addEventListener('mousedown', e => e.preventDefault());
+  document.addEventListener('touchstart', e => {
+    if (e.touches.length > 1) e.preventDefault();
+  }, { passive: false });
+  document.addEventListener('gesturestart', e => e.preventDefault());
+
+  // Prevent zoom on mobile
+  document.addEventListener('wheel', function(e) {
+    if (e.ctrlKey) e.preventDefault();
+  }, { passive: false });
+
+  // Block common devtools key combinations
+  document.addEventListener('keydown', e => {
+    if (
+      e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) ||
+      (e.ctrlKey && e.key.toUpperCase() === 'U')
+    ) {
+      e.preventDefault();
+    }
+  });
+
+  // DevTools detection (basic check)
+  let checkDevTools = () => {
+    let start = performance.now();
+    debugger;
+    let time = performance.now() - start;
+    if (time > 100) {
+      window.location.href = "about:blank"; // redirect or blank out
+    }
+  };
+
+  setInterval(checkDevTools, 1000);
+</script>
+
+<style>
+  /* Block user-select and touch-callout */
+  * {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    user-select: none;
+    touch-action: manipulation;
+  }
+
+  html, body {
+    -webkit-text-size-adjust: 100%;
+    overflow: hidden;
+  }
+</style>
+
 
 </body>
 </html>
